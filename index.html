@@ -1,0 +1,1686 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Agro Industries | Nepal's Leading Rice Supplier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-dark: #0A3D2F;
+        --primary-green: #1E6B52;
+        --primary-gold: #D4AF37;
+        --primary-light: #F5F5E9;
+        --text-dark: #1A1A1A;
+        --text-light: #5A5A5A;
+        --white: #FFFFFF;
+        --shadow: rgba(10, 61, 47, 0.1);
+        --section-gap: 80px;
+        --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        --container-width: 1200px;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-dark);
+        line-height: 1.7;
+        overflow-x: hidden;
+        background-color: #f9f9f9;
+    }
+
+    /* Animated Background */
+    .animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        background: linear-gradient(135deg, #f5f5e9 0%, #e8f4f0 50%, #f0f2e8 100%);
+        overflow: hidden;
+    }
+
+    /* Navigation */
+    .premium-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 20px rgba(10, 61, 47, 0.08);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        transition: var(--transition);
+        padding: 15px 0;
+    }
+
+    .nav-container {
+        max-width: var(--container-width);
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+    }
+
+    .logo-img {
+        height: 45px;
+        width: auto;
+        border-radius: 8px;
+    }
+
+    .logo-text {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: var(--primary-dark);
+    }
+
+    .logo-text span {
+        color: var(--primary-gold);
+    }
+
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .nav-menu li a {
+        color: var(--primary-dark);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 12px 20px;
+        border-radius: 50px;
+        transition: var(--transition);
+        font-size: 0.95rem;
+    }
+
+    .nav-menu li a:hover {
+        color: var(--primary-gold);
+        background: rgba(212, 175, 55, 0.05);
+    }
+
+    .nav-menu li a.active {
+        color: var(--primary-gold);
+        background: rgba(212, 175, 55, 0.08);
+    }
+
+    .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .nav-phone {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary-gold);
+        color: var(--primary-dark);
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 0.9rem;
+    }
+
+    .nav-phone:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .mobile-toggle {
+        display: none;
+        background: var(--primary-gold);
+        border: none;
+        color: var(--primary-dark);
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    /* Hero Section - Clean & Spacious */
+    .premium-hero {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 150px 20px 80px;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+    }
+
+    .hero-content {
+        max-width: var(--container-width);
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: 3.5rem;
+        color: var(--white);
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    .hero-title span {
+        color: var(--primary-gold);
+    }
+
+    .hero-tagline {
+        font-size: 1.5rem;
+        color: var(--primary-gold);
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.8;
+    }
+
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin: 40px 0;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 20px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        transition: var(--transition);
+        min-width: 140px;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .stat-number {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--primary-gold);
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 15px 35px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: var(--transition);
+        cursor: pointer;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-primary {
+        background: var(--primary-gold);
+        color: var(--primary-dark);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--white);
+        border: 2px solid var(--primary-gold);
+    }
+
+    .btn-secondary:hover {
+        background: rgba(212, 175, 55, 0.1);
+        transform: translateY(-3px);
+    }
+
+    /* Sections */
+    .premium-section {
+        padding: var(--section-gap) 20px;
+        position: relative;
+    }
+
+    .section-title {
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: var(--primary-dark);
+        font-weight: 800;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto 50px;
+        line-height: 1.8;
+    }
+
+    .container {
+        max-width: var(--container-width);
+        margin: 0 auto;
+    }
+
+    /* About Section */
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .about-text p {
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+    }
+
+    .mission-vision {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .mission-card, .vision-card {
+        background: var(--white);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(10, 61, 47, 0.08);
+        border-left: 4px solid var(--primary-gold);
+    }
+
+    .mission-card h3, .vision-card h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .about-image {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .about-image img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+
+    .about-image:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Products Section */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .product-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(10, 61, 47, 0.1);
+        transition: var(--transition);
+    }
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(10, 61, 47, 0.15);
+    }
+
+    .product-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--primary-gold);
+        color: var(--primary-dark);
+        padding: 6px 15px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+
+    .product-image {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+
+    .product-card:hover .product-image img {
+        transform: scale(1.1);
+    }
+
+    .product-content {
+        padding: 25px;
+    }
+
+    .product-content h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.4rem;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+    }
+
+    .product-content p {
+        color: var(--text-light);
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+    }
+
+    .product-specs {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+        padding-top: 20px;
+        border-top: 1px solid rgba(10, 61, 47, 0.1);
+    }
+
+    .kg-options {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .kg-btn {
+        padding: 6px 15px;
+        background: rgba(212, 175, 55, 0.1);
+        color: var(--primary-dark);
+        border: 1px solid var(--primary-gold);
+        border-radius: 50px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .kg-btn:hover, .kg-btn.active {
+        background: var(--primary-gold);
+        color: var(--white);
+    }
+
+    .product-rating {
+        color: var(--primary-gold);
+        font-size: 0.95rem;
+    }
+
+    .product-cta {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .btn-order {
+        flex: 1;
+        background: var(--primary-green);
+        color: white;
+        padding: 12px;
+        border-radius: 10px;
+        text-decoration: none;
+        text-align: center;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .btn-order:hover {
+        background: var(--primary-dark);
+        transform: translateY(-3px);
+    }
+
+    /* Process Section - Enhanced */
+    .process-section {
+        background: linear-gradient(135deg, var(--primary-light) 0%, #ffffff 100%);
+        border-radius: 30px;
+        padding: 60px;
+        margin-top: 60px;
+    }
+
+    .process-timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 50px auto 0;
+    }
+
+    .process-timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: var(--primary-gold);
+        z-index: 1;
+    }
+
+    .process-step {
+        position: relative;
+        margin-bottom: 40px;
+        width: 45%;
+        animation: slideIn 0.8s ease-out;
+    }
+
+    .process-step:nth-child(odd) {
+        left: 0;
+        text-align: right;
+        padding-right: 60px;
+    }
+
+    .process-step:nth-child(even) {
+        left: 55%;
+        text-align: left;
+        padding-left: 60px;
+    }
+
+    .step-icon {
+        position: absolute;
+        top: 0;
+        width: 60px;
+        height: 60px;
+        background: var(--primary-gold);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-dark);
+        font-size: 1.5rem;
+        z-index: 2;
+    }
+
+    .process-step:nth-child(odd) .step-icon {
+        right: -30px;
+    }
+
+    .process-step:nth-child(even) .step-icon {
+        left: -30px;
+    }
+
+    .process-step h4 {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Why Choose Us */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .feature-card {
+        background: var(--white);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(10, 61, 47, 0.08);
+        text-align: center;
+        transition: var(--transition);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(10, 61, 47, 0.15);
+    }
+
+    .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: rgba(212, 175, 55, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.8rem;
+        color: var(--primary-gold);
+    }
+
+    .feature-card h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.3rem;
+        color: var(--primary-dark);
+        margin-bottom: 15px;
+    }
+
+    /* Contact Section */
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        background: var(--white);
+        border-radius: 30px;
+        padding: 50px;
+        box-shadow: 0 20px 50px rgba(10, 61, 47, 0.1);
+    }
+
+    .contact-info h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.8rem;
+        color: var(--primary-dark);
+        margin-bottom: 30px;
+    }
+
+    .contact-details {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .contact-detail {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 20px;
+        background: var(--primary-light);
+        border-radius: 15px;
+        border-left: 4px solid var(--primary-gold);
+    }
+
+    .contact-detail i {
+        font-size: 1.5rem;
+        color: var(--primary-gold);
+        margin-top: 5px;
+    }
+
+    .contact-detail h4 {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--primary-dark);
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+
+    .contact-form {
+        padding: 20px 0;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--primary-gold);
+    }
+
+    /* Map Section */
+    .map-section {
+        margin-top: 60px;
+        background: var(--white);
+        border-radius: 30px;
+        padding: 40px;
+        box-shadow: 0 20px 50px rgba(10, 61, 47, 0.1);
+    }
+
+    .map-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .map-header h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.8rem;
+        color: var(--primary-dark);
+        margin-bottom: 10px;
+    }
+
+    .map-container {
+        border-radius: 20px;
+        overflow: hidden;
+        border: 2px solid var(--primary-gold);
+    }
+
+    /* Footer */
+    .premium-footer {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, #0a2d23 100%);
+        color: var(--white);
+        padding: 60px 20px 30px;
+        margin-top: 80px;
+    }
+
+    .footer-content {
+        max-width: var(--container-width);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer-column h4 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: var(--primary-gold);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 12px;
+    }
+
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary-gold);
+    }
+
+    .contact-info-footer p {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .contact-info-footer i {
+        margin-right: 12px;
+        color: var(--primary-gold);
+        margin-top: 5px;
+    }
+
+    /* Social Media & Contact Icons */
+    .social-contact-section {
+        text-align: center;
+        padding: 30px 0;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        margin-top: 40px;
+    }
+
+    .social-contact-section h5 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1.3rem;
+        color: var(--primary-gold);
+        margin-bottom: 25px;
+    }
+
+    .social-contact-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .contact-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.9);
+        transition: var(--transition);
+        padding: 15px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        min-width: 100px;
+    }
+
+    .contact-icon:hover {
+        background: rgba(212, 175, 55, 0.2);
+        color: var(--primary-gold);
+        transform: translateY(-5px);
+    }
+
+    .contact-icon i {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+    }
+
+    .contact-icon span {
+        font-size: 0.85rem;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+    }
+
+    /* Form Success Message */
+    .form-success {
+        display: none;
+        background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+        color: white;
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        margin: 20px 0;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .form-success i {
+        font-size: 48px;
+        color: var(--primary-gold);
+        margin-bottom: 20px;
+    }
+
+    .form-success h3 {
+        font-family: 'Montserrat', sans-serif;
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1100px) {
+        :root {
+            --container-width: 100%;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .about-content,
+        .contact-container {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        .mission-vision {
+            grid-template-columns: 1fr;
+        }
+        
+        .process-timeline::before {
+            left: 30px;
+        }
+        
+        .process-step {
+            width: 100%;
+            left: 0 !important;
+            text-align: left !important;
+            padding-left: 80px !important;
+            padding-right: 0 !important;
+        }
+        
+        .process-step:nth-child(odd) .step-icon,
+        .process-step:nth-child(even) .step-icon {
+            left: 0;
+            right: auto;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .premium-hero {
+            padding: 120px 20px 60px;
+            min-height: auto;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-tagline {
+            font-size: 1.3rem;
+        }
+        
+        .nav-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: white;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .nav-menu.show {
+            display: flex;
+        }
+        
+        .mobile-toggle {
+            display: block;
+        }
+        
+        .nav-cta {
+            display: none;
+        }
+        
+        .hero-stats {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-card {
+            width: 100%;
+            max-width: 250px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .process-section {
+            padding: 40px 20px;
+        }
+        
+        .contact-container {
+            padding: 30px;
+        }
+        
+        .map-section {
+            padding: 30px 20px;
+        }
+        
+        .social-contact-icons {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .contact-icon {
+            width: 100%;
+            max-width: 250px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .btn {
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .product-cta {
+            flex-direction: column;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="premium-nav" id="premiumNav">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <!-- Add your logo here -->
+                <div class="logo-text">Abhishek <span>Agro</span></div>
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="#products"><i class="fas fa-shopping-basket"></i> Products</a></li>
+                <li><a href="#process"><i class="fas fa-cogs"></i> Process</a></li>
+                <li><a href="#why"><i class="fas fa-star"></i> Why Us</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            
+            <div class="nav-cta">
+                <a href="tel:+071507355" class="nav-phone">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+071-507355</span>
+                </a>
+            </div>
+            
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="premium-hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Premium Quality <span>Rice Supplier</span></h1>
+            <p class="hero-tagline">Nepal's Trusted Partner Since 2005</p>
+            <p class="hero-subtitle">Abhishek Agro Industries delivers the finest quality rice products nationwide. With 18+ years of excellence, we supply premium rice varieties to households, restaurants, retailers, and wholesalers across all 77 districts of Nepal.</p>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">18+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">50K+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">77</span>
+                    <span class="stat-label">Districts Covered</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Rice Varieties</span>
+                </div>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i>
+                    Request Quote
+                </a>
+                <a href="#products" class="btn btn-secondary">
+                    <i class="fas fa-shopping-cart"></i>
+                    View Products
+                </a>
+                <a href="tel:9857022913" class="btn btn-secondary">
+                    <i class="fas fa-phone-alt"></i>
+                    Call Now: 985-7022913
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="premium-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Abhishek Agro</h2>
+            <p class="section-subtitle">With a legacy of 18+ years, we are Nepal's leading rice trading company committed to quality, trust, and customer satisfaction.</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Established in 2005 in Siddharthanagar Municipality, Bhairahawa, Abhishek Agro Industries has grown to become one of Nepal's most trusted rice suppliers. Our journey began with a simple mission: to provide every Nepali household with access to high-quality, nutritious rice at fair prices.</p>
+                    <p>We work directly with local farmers across Nepal's fertile regions, ensuring fair trade practices while maintaining rigorous quality standards. Our state-of-the-art processing facilities and quality control measures guarantee that only the finest rice reaches your table.</p>
+                    
+                    <div class="mission-vision">
+                        <div class="mission-card">
+                            <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                            <p>To deliver superior quality rice products while supporting local agriculture and maintaining ethical business practices.</p>
+                        </div>
+                        <div class="vision-card">
+                            <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                            <p>To revolutionize Nepal's rice industry by setting new standards in quality, sustainability, and customer service.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1590080876215-8d9caa8a03c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Rice Processing Facility">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="premium-section" id="products">
+        <div class="container">
+            <h2 class="section-title">Our Premium Rice Collection</h2>
+            <p class="section-subtitle">Carefully selected and processed to maintain nutrition, taste, and texture.</p>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Bestseller</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="SONAM Rice">
+                    </div>
+                    <div class="product-content">
+                        <h3>SONAM Premium Rice</h3>
+                        <p>Premium Sabha Jeera Masino Chamal known for its fine grains, rich aroma, and excellent taste. Ideal for daily consumption and special occasions.</p>
+                        
+                        <div class="product-specs">
+                            <div class="kg-options">
+                                <button class="kg-btn active" data-kg="5">5 KG</button>
+                                <button class="kg-btn" data-kg="10">10 KG</button>
+                                <button class="kg-btn" data-kg="25">25 KG</button>
+                                <button class="kg-btn" data-kg="50">50 KG</button>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                4.7
+                            </div>
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SONAM%20Premium%20Rice" target="_blank" class="btn-order">
+                                <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1516684732162-798d2d9e6b76?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="SWAD BHOG Mota">
+                    </div>
+                    <div class="product-content">
+                        <h3>SWAD BHOG Mota</h3>
+                        <p>Mota Silky Chamal offering superior texture, long grains, and consistent cooking quality. Perfect for biryani and pulao preparations.</p>
+                        
+                        <div class="product-specs">
+                            <div class="kg-options">
+                                <button class="kg-btn active" data-kg="5">5 KG</button>
+                                <button class="kg-btn" data-kg="10">10 KG</button>
+                                <button class="kg-btn" data-kg="25">25 KG</button>
+                                <button class="kg-btn" data-kg="50">50 KG</button>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                                4.5
+                            </div>
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SWAD%20BHOG%20Mota%20Rice" target="_blank" class="btn-order">
+                                <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">Premium</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="SWAD BHOG Premium">
+                    </div>
+                    <div class="product-content">
+                        <h3>SWAD BHOG Premium</h3>
+                        <p>Extra polished Sabha Chamal with superior shine and uniform grains. Carefully processed to meet high standards for discerning customers.</p>
+                        
+                        <div class="product-specs">
+                            <div class="kg-options">
+                                <button class="kg-btn active" data-kg="5">5 KG</button>
+                                <button class="kg-btn" data-kg="10">10 KG</button>
+                                <button class="kg-btn" data-kg="25">25 KG</button>
+                            </div>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                5.0
+                            </div>
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SWAD%20BHOG%20Premium%20Rice" target="_blank" class="btn-order">
+                                <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="premium-section" id="process">
+        <div class="container">
+            <h2 class="section-title">Our Quality Process</h2>
+            <p class="section-subtitle">From farm to table - ensuring premium quality at every step.</p>
+            
+            <div class="process-section">
+                <div class="process-timeline">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h4>Farm Selection</h4>
+                        <p>Carefully selecting farms with optimal soil and climate conditions across Nepal's fertile regions. Regular soil testing ensures quality.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h4>Harvesting</h4>
+                        <p>Timely harvesting at peak maturity to ensure maximum nutritional value and flavor. Hand-picked by experienced farmers.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h4>Processing</h4>
+                        <p>State-of-the-art milling and processing while preserving natural nutrients and aroma. Modern machinery ensures consistency.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>Quality Check</h4>
+                        <p>7-point quality inspection ensuring only premium rice reaches customers. Laboratory testing for purity and nutrition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why Choose Us -->
+    <section class="premium-section" id="why">
+        <div class="container">
+            <h2 class="section-title">Why Choose Abhishek Agro?</h2>
+            <p class="section-subtitle">We go beyond just supplying rice - we deliver trust, quality, and service excellence.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>Rigorous quality control ensures only the finest rice reaches your table. Our products meet national food safety standards.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Nationwide Delivery</h3>
+                    <p>We deliver to all 77 districts of Nepal through our extensive logistics network. Timely delivery guaranteed.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Trusted Partnership</h3>
+                    <p>Building long-term relationships with farmers, suppliers, and customers based on transparency and mutual benefit.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainable Sourcing</h3>
+                    <p>Direct partnership with local farmers promoting sustainable agriculture and fair trade practices across Nepal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="premium-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Get in touch for wholesale inquiries, retail orders, or partnership opportunities.</p>
+            
+            <!-- Form Success Message (Hidden by default) -->
+            <div id="formSuccess" class="form-success" style="display: none;">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank You!</h3>
+                <p>Your inquiry has been sent successfully.</p>
+                <p>We will contact you within <strong>24 hours</strong>.</p>
+                <p style="margin-top: 15px;"><i class="fas fa-phone"></i> Call us now: 985-7022913</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Head Office</h4>
+                                <p>Siddharthanagar Municipality-04, Bhairahawa, Rupandehi, Nepal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>Phone Numbers</h4>
+                                <p>Office: +071-507355</p>
+                                <p>Mobile: 985-7022913, 980-1234567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Address</h4>
+                                <p>info.abhishekagroindustry@gmail.com</p>
+                                <p>sales@abhishekagro.np</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Business Hours</h4>
+                                <p>Sunday - Friday: 8:00 AM - 7:00 PM</p>
+                                <p>Saturday: 9:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Inquiry</h3>
+                    <!-- UPDATED FORM WITH FORMSPREE INTEGRATION -->
+                    <form id="contactForm" action="https://formspree.io/f/mnjjpzdo" method="POST">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inquiryType">Inquiry Type</label>
+                            <select id="inquiryType" name="inquiry_type">
+                                <option value="wholesale">Wholesale Inquiry</option>
+                                <option value="retail">Retail Purchase</option>
+                                <option value="partnership">Business Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        
+                        <!-- Formspree hidden fields -->
+                        <input type="hidden" name="_subject" value="New Inquiry - Abhishek Agro Website">
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Map Section -->
+            <div class="map-section">
+                <div class="map-header">
+                    <h3>Find Us</h3>
+                    <p>Visit our office or locate us on the map</p>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113032.44306907175!2d83.41017911066472!3d27.509181534554753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39969b005ee8ea71%3A0x64424c0e5d8de1f3!2sAbhishek%20Enterprises!5e0!3m2!1sen!2snp!4v1700052813286!5m2!1sen!2snp" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="premium-footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Abhishek Agro</h4>
+                <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 20px;">Nepal's leading rice supplier committed to quality, trust, and customer satisfaction since 2005.</p>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <a href="https://facebook.com/abhishekagroindustry" target="_blank" style="color: white; font-size: 1.3rem;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/abhishekagroindustry" target="_blank" style="color: white; font-size: 1.3rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="mailto:info.abhishekagroindustry@gmail.com" style="color: white; font-size: 1.3rem;"><i class="fas fa-envelope"></i></a>
+                    <a href="https://wa.me/9857022913" target="_blank" style="color: white; font-size: 1.3rem;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> Our Products</a></li>
+                    <li><a href="#process"><i class="fas fa-chevron-right"></i> Our Process</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Our Products</h4>
+                <ul class="footer-links">
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> SONAM Rice</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> SWAD BHOG Mota</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> SWAD BHOG Premium</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> DAYA BHOG Special</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Contact Info</h4>
+                <div class="contact-info-footer">
+                    <p><i class="fas fa-map-marker-alt"></i> Siddharthanagar-04, Bhairahawa, Nepal</p>
+                    <p><i class="fas fa-phone-alt"></i> +071-507355, 985-7022913</p>
+                    <p><i class="fas fa-envelope"></i> info.abhishekagroindustry@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media & Contact Icons -->
+        <div class="social-contact-section">
+            <h5>Connect With Us</h5>
+            <div class="social-contact-icons">
+                <a href="tel:+071507355" class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Call Us</span>
+                </a>
+                
+                <a href="https://wa.me/9779857022913" target="_blank" class="contact-icon">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                
+                <a href="mailto:info.abhishekagroindustry@gmail.com" class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                
+                <a href="https://facebook.com/abhishekagroindustry" target="_blank" class="contact-icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </a>
+                
+                <a href="https://instagram.com/abhishekagroindustry" target="_blank" class="contact-icon">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 Abhishek Agro Industries. All Rights Reserved. | Marketed by Abhishek Enterprises</p>
+            <p style="margin-top: 10px;">Proudly supplying quality rice to Nepal for over 18 years</p>
+        </div>
+    </footer>
+    
+    <script>
+    // Mobile Navigation
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    const premiumNav = document.getElementById('premiumNav');
+    
+    mobileToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+        mobileToggle.innerHTML = navMenu.classList.contains('show') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            premiumNav.classList.add('scrolled');
+        } else {
+            premiumNav.classList.remove('scrolled');
+        }
+        
+        // Update active nav link
+        const sections = document.querySelectorAll('.premium-section');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+    
+    // Product KG Selection
+    document.querySelectorAll('.kg-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons in this product
+            this.parentElement.querySelectorAll('.kg-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Update WhatsApp link with selected KG
+            const productName = this.closest('.product-content').querySelector('h3').textContent;
+            const kg = this.getAttribute('data-kg');
+            const whatsappBtn = this.closest('.product-cta').querySelector('.btn-order');
+            const whatsappLink = `https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20${encodeURIComponent(productName)}%20${kg}KG`;
+            whatsappBtn.href = whatsappLink;
+        });
+    });
+    
+    // Process Step Animation
+    const processSteps = document.querySelectorAll('.process-step');
+    
+    const processObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'slideIn 0.8s ease-out forwards';
+                entry.target.style.opacity = '1';
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    processSteps.forEach(step => {
+        step.style.opacity = '0';
+        processObserver.observe(step);
+    });
+    
+    // Form Submission with Formspree
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                
+                // Send to Formspree
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Show success message
+                    formSuccess.style.display = 'block';
+                    
+                    // Hide form
+                    this.style.display = 'none';
+                    
+                    // Scroll to success message
+                    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Reset form (optional - for if you show it again)
+                    this.reset();
+                    
+                    // Log success
+                    console.log('Form submitted successfully to Formspree');
+                    
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                
+                // Fallback: Use Formspree's default submission
+                alert('Sending your message... Please wait.');
+                this.submit();
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+    
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Close mobile menu
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('show');
+                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+        if (window.scrollY > 50) {
+            premiumNav.classList.add('scrolled');
+        }
+    });
+    </script>
+</body>
+</html>
