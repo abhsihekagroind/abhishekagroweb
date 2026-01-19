@@ -482,19 +482,127 @@
 
     /* REMOVED: Product badges (Popular, Bestseller, Premium) */
 
-    .product-image {
+/* Products Section - UPDATED */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(10, 61, 47, 0.1);
+    transition: var(--transition);
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(10, 61, 47, 0.15);
+}
+
+.product-image {
     height: 200px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f8f8f8;
+}
 
-    .product-image img {
+.product-image img {
     width: 50%;
     height: auto;
     object-fit: cover;
     transition: transform 0.8s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.1);
+}
+
+.product-content {
+    padding: 25px;
+}
+
+.product-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+.product-content p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.product-specs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(10, 61, 47, 0.1);
+}
+
+.kg-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.kg-btn {
+    padding: 8px 18px;
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--primary-dark);
+    border: 1px solid var(--primary-gold);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.kg-btn:hover, .kg-btn.active {
+    background: var(--primary-gold);
+    color: var(--white);
+}
+
+/* Rating positioned above order button */
+.product-rating {
+    color: var(--primary-gold);
+    font-size: 0.95rem;
+    margin: 15px 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.product-cta {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-order {
+    flex: 1;
+    background: var(--primary-green);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-order:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
 }
 
     .product-card:hover .product-image img {
@@ -1804,6 +1912,7 @@
     </script>
 </body>
 </html>
+
 
 
 
