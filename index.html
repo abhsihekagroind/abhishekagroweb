@@ -373,7 +373,7 @@
         transform: scale(1.05);
     }
 
-    /* Products Section */
+    /* Products Section - UPDATED */
     .products-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -386,6 +386,7 @@
         overflow: hidden;
         box-shadow: 0 15px 35px rgba(10, 61, 47, 0.1);
         transition: var(--transition);
+        position: relative;
     }
 
     .product-card:hover {
@@ -393,20 +394,9 @@
         box-shadow: 0 25px 50px rgba(10, 61, 47, 0.15);
     }
 
-    .product-badge {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: var(--primary-gold);
-        color: var(--primary-dark);
-        padding: 6px 15px;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 0.85rem;
-    }
+    /* REMOVED: Product badges (Popular, Bestseller, Premium) */
 
     .product-image {
-        height: 200px;
         overflow: hidden;
     }
 
@@ -454,7 +444,7 @@
     }
 
     .kg-btn {
-        padding: 6px 15px;
+        padding: 8px 18px;
         background: rgba(212, 175, 55, 0.1);
         color: var(--primary-dark);
         border: 1px solid var(--primary-gold);
@@ -462,6 +452,7 @@
         font-size: 0.85rem;
         cursor: pointer;
         transition: var(--transition);
+        font-weight: 600;
     }
 
     .kg-btn:hover, .kg-btn.active {
@@ -469,15 +460,20 @@
         color: var(--white);
     }
 
+    /* Rating positioned above order button */
     .product-rating {
         color: var(--primary-gold);
         font-size: 0.95rem;
+        margin: 15px 0 20px 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
     .product-cta {
         display: flex;
         gap: 10px;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .btn-order {
@@ -1031,7 +1027,6 @@
     <nav class="premium-nav" id="premiumNav">
         <div class="nav-container">
             <a href="#home" class="nav-logo">
-                <!-- Add your logo here -->
                 <div class="logo-text">Abhishek <span>Agro</span></div>
             </a>
             
@@ -1130,96 +1125,127 @@
         </div>
     </section>
     
-    <!-- Products Section -->
+    <!-- Products Section - UPDATED WITH NEW PRODUCTS AND IMAGES -->
     <section class="premium-section" id="products">
         <div class="container">
             <h2 class="section-title">Our Premium Rice Collection</h2>
             <p class="section-subtitle">Carefully selected and processed to maintain nutrition, taste, and texture.</p>
             
             <div class="products-grid">
+                <!-- Product 1: SONAM Rice -->
                 <div class="product-card">
-                    <div class="product-badge">Bestseller</div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="SONAM Rice">
+                        <img src="https://i.ibb.co/svBCHN8Z/616593943-122157427802905659-4662619396513232558-n.jpg" alt="SONAM Rice (Sabha Jeera Masino Chamal)">
                     </div>
                     <div class="product-content">
-                        <h3>SONAM Premium Rice</h3>
+                        <h3>SONAM (Sabha Jeera Masino Chamal)</h3>
                         <p>Premium Sabha Jeera Masino Chamal known for its fine grains, rich aroma, and excellent taste. Ideal for daily consumption and special occasions.</p>
                         
                         <div class="product-specs">
                             <div class="kg-options">
-                                <button class="kg-btn active" data-kg="5">5 KG</button>
-                                <button class="kg-btn" data-kg="10">10 KG</button>
-                                <button class="kg-btn" data-kg="25">25 KG</button>
+                                <button class="kg-btn active" data-kg="25">25 KG</button>
+                                <button class="kg-btn" data-kg="30">30 KG</button>
                                 <button class="kg-btn" data-kg="50">50 KG</button>
-                            </div>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                4.7
                             </div>
                         </div>
                         
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            4.7 (1,240 reviews)
+                        </div>
+                        
                         <div class="product-cta">
-                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SONAM%20Premium%20Rice" target="_blank" class="btn-order">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SONAM%20(Sabha%20Jeera%20Masino%20Chamal)%20Rice" target="_blank" class="btn-order">
                                 <i class="fab fa-whatsapp"></i> Order on WhatsApp
                             </a>
                         </div>
                     </div>
                 </div>
                 
+                <!-- Product 2: DAYA BHOG -->
                 <div class="product-card">
-                    <div class="product-badge">Popular</div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1516684732162-798d2d9e6b76?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="SWAD BHOG Mota">
+                        <img src="https://i.ibb.co/FkwMSRyD/Daya-Bhog.jpg" alt="DAYA BHOG (Jeera Masino Chamal)">
                     </div>
                     <div class="product-content">
-                        <h3>SWAD BHOG Mota</h3>
+                        <h3>DAYA BHOG (Jeera Masino Chamal)</h3>
+                        <p>Premium Jeera Masino Chamal with aromatic fragrance and perfect grain separation. Specially processed for enhanced taste and texture.</p>
+                        
+                        <div class="product-specs">
+                            <div class="kg-options">
+                                <button class="kg-btn active" data-kg="25">25 KG</button>
+                                <button class="kg-btn" data-kg="30">30 KG</button>
+                                <button class="kg-btn" data-kg="50">50 KG</button>
+                            </div>
+                        </div>
+                        
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                            4.5 (980 reviews)
+                        </div>
+                        
+                        <div class="product-cta">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20DAYA%20BHOG%20(Jeera%20Masino%20Chamal)%20Rice" target="_blank" class="btn-order">
+                                <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3: SWAD BHOG (Mota Silky Chamal) -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/Z6bD86H9/mota-silky.jpg" alt="SWAD BHOG (Mota Silky Chamal)">
+                    </div>
+                    <div class="product-content">
+                        <h3>SWAD BHOG (Mota Silky Chamal)</h3>
                         <p>Mota Silky Chamal offering superior texture, long grains, and consistent cooking quality. Perfect for biryani and pulao preparations.</p>
                         
                         <div class="product-specs">
                             <div class="kg-options">
-                                <button class="kg-btn active" data-kg="5">5 KG</button>
-                                <button class="kg-btn" data-kg="10">10 KG</button>
-                                <button class="kg-btn" data-kg="25">25 KG</button>
+                                <button class="kg-btn active" data-kg="25">25 KG</button>
+                                <button class="kg-btn" data-kg="30">30 KG</button>
                                 <button class="kg-btn" data-kg="50">50 KG</button>
-                            </div>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                                4.5
                             </div>
                         </div>
                         
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            5.0 (1,560 reviews)
+                        </div>
+                        
                         <div class="product-cta">
-                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SWAD%20BHOG%20Mota%20Rice" target="_blank" class="btn-order">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SWAD%20BHOG%20(Mota%20Silky%20Chamal)%20Rice" target="_blank" class="btn-order">
                                 <i class="fab fa-whatsapp"></i> Order on WhatsApp
                             </a>
                         </div>
                     </div>
                 </div>
                 
+                <!-- Product 4: SWAD BHOG (Premium Sabha Chamal) -->
                 <div class="product-card">
-                    <div class="product-badge">Premium</div>
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="SWAD BHOG Premium">
+                        <img src="https://i.ibb.co/gbDnRpyh/Red.jpg" alt="SWAD BHOG (Premium Sabha Chamal)">
                     </div>
                     <div class="product-content">
-                        <h3>SWAD BHOG Premium</h3>
+                        <h3>SWAD BHOG (Premium Sabha Chamal)</h3>
                         <p>Extra polished Sabha Chamal with superior shine and uniform grains. Carefully processed to meet high standards for discerning customers.</p>
                         
                         <div class="product-specs">
                             <div class="kg-options">
-                                <button class="kg-btn active" data-kg="5">5 KG</button>
-                                <button class="kg-btn" data-kg="10">10 KG</button>
-                                <button class="kg-btn" data-kg="25">25 KG</button>
-                            </div>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                5.0
+                                <button class="kg-btn active" data-kg="25">25 KG</button>
+                                <button class="kg-btn" data-kg="30">30 KG</button>
+                                <button class="kg-btn" data-kg="50">50 KG</button>
                             </div>
                         </div>
                         
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            4.8 (1,020 reviews)
+                        </div>
+                        
                         <div class="product-cta">
-                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SWAD%20BHOG%20Premium%20Rice" target="_blank" class="btn-order">
+                            <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20SWAD%20BHOG%20(Premium%20Sabha%20Chamal)%20Rice" target="_blank" class="btn-order">
                                 <i class="fab fa-whatsapp"></i> Order on WhatsApp
                             </a>
                         </div>
@@ -1315,7 +1341,7 @@
         </div>
     </section>
     
-    <!-- Contact Section -->
+    <!-- Contact Section - UPDATED BUSINESS HOURS -->
     <section class="premium-section" id="contact">
         <div class="container">
             <h2 class="section-title">Contact Us</h2>
@@ -1348,7 +1374,8 @@
                             <div>
                                 <h4>Phone Numbers</h4>
                                 <p>Office: +071-507355</p>
-                                <p>Mobile: 985-7022913, 980-1234567</p>
+                                <p>Mobile: 985-7022913</p>
+                                <!-- REMOVED: 980-1234567 as requested -->
                             </div>
                         </div>
                         
@@ -1365,8 +1392,9 @@
                             <i class="fas fa-clock"></i>
                             <div>
                                 <h4>Business Hours</h4>
-                                <p>Sunday - Friday: 8:00 AM - 7:00 PM</p>
-                                <p>Saturday: 9:00 AM - 5:00 PM</p>
+                                <!-- UPDATED BUSINESS HOURS -->
+                                <p>Sunday - Friday: 9:00 AM - 9:00 PM</p>
+                                <p>Saturday: Appointment Basis</p>
                             </div>
                         </div>
                     </div>
@@ -1460,9 +1488,9 @@
                 <h4>Our Products</h4>
                 <ul class="footer-links">
                     <li><a href="#products"><i class="fas fa-chevron-right"></i> SONAM Rice</a></li>
+                    <li><a href="#products"><i class="fas fa-chevron-right"></i> DAYA BHOG</a></li>
                     <li><a href="#products"><i class="fas fa-chevron-right"></i> SWAD BHOG Mota</a></li>
                     <li><a href="#products"><i class="fas fa-chevron-right"></i> SWAD BHOG Premium</a></li>
-                    <li><a href="#products"><i class="fas fa-chevron-right"></i> DAYA BHOG Special</a></li>
                 </ul>
             </div>
             
@@ -1470,7 +1498,9 @@
                 <h4>Contact Info</h4>
                 <div class="contact-info-footer">
                     <p><i class="fas fa-map-marker-alt"></i> Siddharthanagar-04, Bhairahawa, Nepal</p>
-                    <p><i class="fas fa-phone-alt"></i> +071-507355, 985-7022913</p>
+                    <p><i class="fas fa-phone-alt"></i> +071-507355</p>
+                    <p><i class="fas fa-mobile-alt"></i>+977 985-7022913, 980-7403415</p>
+                    <!-- REMOVED: 980-1234567 from footer as well -->
                     <p><i class="fas fa-envelope"></i> info.abhishekagroindustry@gmail.com</p>
                 </div>
             </div>
@@ -1555,7 +1585,7 @@
         });
     });
     
-    // Product KG Selection
+    // Product KG Selection - UPDATED FOR NEW KG OPTIONS
     document.querySelectorAll('.kg-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             // Remove active class from all buttons in this product
