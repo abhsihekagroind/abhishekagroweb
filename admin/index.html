@@ -21,11 +21,8 @@
             --primary-green: #1E6B52;
             --primary-gold: #D4AF37;
             --primary-light: #F5F5E9;
-            --text-dark: #1A1A1A;
-            --text-light: #5A5A5A;
             --white: #FFFFFF;
             --error: #dc3545;
-            --success: #28a745;
         }
 
         body {
@@ -89,7 +86,7 @@
         }
 
         .logo p {
-            color: var(--text-light);
+            color: #666;
             font-size: 0.9rem;
         }
 
@@ -107,13 +104,13 @@
 
         .input-group {
             position: relative;
-            display: flex;
-            align-items: center;
         }
 
         .input-group i {
             position: absolute;
             left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             color: var(--primary-gold);
             font-size: 1.1rem;
         }
@@ -134,11 +131,6 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
 
-        .input-group input.error {
-            border-color: var(--error);
-        }
-
-        /* reCAPTCHA container */
         #recaptcha-container {
             margin: 25px 0;
             display: flex;
@@ -174,10 +166,6 @@
             cursor: not-allowed;
         }
 
-        .login-btn i {
-            font-size: 1.1rem;
-        }
-
         .error-message {
             background: rgba(220, 53, 69, 0.1);
             color: var(--error);
@@ -200,18 +188,6 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        .info-text {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.8rem;
-            margin-top: 20px;
-        }
-
-        .info-text i {
-            color: var(--primary-gold);
-            margin-right: 5px;
-        }
-
         .loading-spinner {
             display: inline-block;
             width: 20px;
@@ -232,12 +208,24 @@
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
-            color: var(--text-light);
+            color: #666;
             font-size: 0.8rem;
         }
 
         .security-badge i {
             color: var(--primary-gold);
+        }
+
+        .info-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 20px;
+        }
+
+        .info-text i {
+            color: var(--primary-gold);
+            margin-right: 5px;
         }
     </style>
 </head>
@@ -255,7 +243,7 @@
 
             <form id="loginForm">
                 <div class="form-group">
-                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <label>Email Address</label>
                     <div class="input-group">
                         <i class="fas fa-envelope"></i>
                         <input type="email" id="email" placeholder="admin@abhishekagro.com" required>
@@ -263,7 +251,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
+                    <label>Password</label>
                     <div class="input-group">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="password" placeholder="••••••••" required>
@@ -280,7 +268,7 @@
 
                 <div class="security-badge">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Protected by reCAPTCHA</span>
+                    <span>Protected by Google reCAPTCHA</span>
                     <i class="fas fa-lock"></i>
                 </div>
             </form>
@@ -295,77 +283,63 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     
     <!-- Your Firebase Config -->
     <script src="../js/firebase-config.js"></script>
 
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <script>
-        // Wait for Firebase to initialize
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded, initializing reCAPTCHA...');
+            console.log('Page loaded with Firebase project:', 'abhishek-agro-admin');
             
             let recaptchaVerifier;
             let isRecaptchaReady = false;
             
             // Initialize reCAPTCHA
-            function initializeRecaptcha() {
-                try {
-                    recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                        'size': 'normal',
-                        'callback': (response) => {
-                            console.log('reCAPTCHA verified');
-                            document.getElementById('loginBtn').disabled = false;
-                            hideError();
-                        },
-                        'expired-callback': () => {
-                            console.log('reCAPTCHA expired');
-                            document.getElementById('loginBtn').disabled = true;
-                            showError('reCAPTCHA expired. Please check the box again.');
-                        },
-                        'error-callback': (error) => {
-                            console.error('reCAPTCHA error:', error);
-                            document.getElementById('loginBtn').disabled = true;
-                            showError('reCAPTCHA verification failed. Please refresh the page.');
-                        }
-                    });
-                    
-                    // Render the reCAPTCHA widget
-                    recaptchaVerifier.render().then((widgetId) => {
-                        console.log('reCAPTCHA rendered successfully');
-                        window.recaptchaWidgetId = widgetId;
-                        isRecaptchaReady = true;
-                    }).catch(error => {
-                        console.error('Error rendering reCAPTCHA:', error);
-                        showError('Failed to load reCAPTCHA. Please refresh the page.');
-                    });
-                    
-                } catch (error) {
-                    console.error('Error initializing reCAPTCHA:', error);
-                    showError('Failed to initialize security. Please refresh the page.');
-                }
+            try {
+                recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                    'size': 'normal',
+                    'callback': (response) => {
+                        console.log('reCAPTCHA verified');
+                        document.getElementById('loginBtn').disabled = false;
+                        hideError();
+                    },
+                    'expired-callback': () => {
+                        console.log('reCAPTCHA expired');
+                        document.getElementById('loginBtn').disabled = true;
+                        showError('reCAPTCHA expired. Please check the box again.');
+                    }
+                });
+                
+                recaptchaVerifier.render().then((widgetId) => {
+                    console.log('reCAPTCHA rendered');
+                    window.recaptchaWidgetId = widgetId;
+                    isRecaptchaReady = true;
+                }).catch(error => {
+                    console.error('reCAPTCHA render error:', error);
+                    showError('Failed to load security check. Please refresh.');
+                });
+                
+            } catch (error) {
+                console.error('reCAPTCHA init error:', error);
+                showError('Security initialization failed');
             }
 
-            // Initialize reCAPTCHA
-            initializeRecaptcha();
-
-            // Show error message
             function showError(message) {
                 const errorDiv = document.getElementById('errorMessage');
                 errorDiv.textContent = message;
                 errorDiv.classList.add('show');
-                
-                // Auto hide after 5 seconds
-                setTimeout(() => {
-                    errorDiv.classList.remove('show');
-                }, 5000);
+                setTimeout(() => errorDiv.classList.remove('show'), 5000);
             }
 
-            // Hide error message
             function hideError() {
                 document.getElementById('errorMessage').classList.remove('show');
             }
 
-            // Handle login form submission
+            // Login form submission
             document.getElementById('loginForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
@@ -373,38 +347,31 @@
                 const password = document.getElementById('password').value;
                 const loginBtn = document.getElementById('loginBtn');
                 
-                // Validate inputs
                 if (!email || !password) {
                     showError('Please enter both email and password');
                     return;
                 }
                 
                 if (!isRecaptchaReady) {
-                    showError('Please wait for reCAPTCHA to load');
+                    showError('Please wait for security check to load');
                     return;
                 }
                 
-                // Check if reCAPTCHA is verified
-                if (!recaptchaVerifier || !grecaptcha || !window.recaptchaWidgetId) {
-                    showError('reCAPTCHA not ready. Please refresh the page.');
-                    return;
-                }
-                
-                // Check reCAPTCHA response
+                // Check reCAPTCHA
                 const recaptchaResponse = grecaptcha.getResponse(window.recaptchaWidgetId);
                 if (!recaptchaResponse) {
-                    showError('Please complete the reCAPTCHA verification');
+                    showError('Please complete the security check');
                     return;
                 }
                 
-                // Disable button and show loading
+                // Disable button
                 loginBtn.disabled = true;
                 loginBtn.innerHTML = '<span class="loading-spinner"></span> Verifying...';
                 
                 try {
                     console.log('Attempting login for:', email);
                     
-                    // Sign in with email and password
+                    // Sign in
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     
                     console.log('Login successful for:', userCredential.user.email);
@@ -420,30 +387,18 @@
                         grecaptcha.reset(window.recaptchaWidgetId);
                     }
                     
-                    // Show appropriate error message
                     let errorMessage = 'Login failed. Please try again.';
-                    switch (error.code) {
-                        case 'auth/invalid-email':
-                            errorMessage = 'Invalid email address format.';
-                            break;
-                        case 'auth/user-disabled':
-                            errorMessage = 'This account has been disabled.';
-                            break;
-                        case 'auth/user-not-found':
-                        case 'auth/wrong-password':
-                            errorMessage = 'Invalid email or password.';
-                            break;
-                        case 'auth/too-many-requests':
-                            errorMessage = 'Too many failed attempts. Please try again later.';
-                            break;
-                        case 'auth/network-request-failed':
-                            errorMessage = 'Network error. Please check your connection.';
-                            break;
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                        errorMessage = 'Invalid email or password';
+                    } else if (error.code === 'auth/too-many-requests') {
+                        errorMessage = 'Too many attempts. Try again later.';
+                    } else if (error.code === 'auth/network-request-failed') {
+                        errorMessage = 'Network error. Check connection.';
                     }
                     
                     showError(errorMessage);
                     
-                    // Re-enable login button
+                    // Re-enable button
                     loginBtn.disabled = false;
                     loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Dashboard';
                 }
@@ -452,14 +407,11 @@
             // Check if already logged in
             auth.onAuthStateChanged(user => {
                 if (user) {
-                    console.log('User already logged in:', user.email);
+                    console.log('Already logged in as:', user.email);
                     window.location.href = 'dashboard.html';
                 }
             });
         });
     </script>
-
-    <!-- Google reCAPTCHA API -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
