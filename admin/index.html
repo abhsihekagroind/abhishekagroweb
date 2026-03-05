@@ -131,11 +131,11 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
 
-        #recaptcha-container {
+        /* reCAPTCHA container */
+        .g-recaptcha {
             margin: 25px 0;
             display: flex;
             justify-content: center;
-            min-height: 78px;
         }
 
         .login-btn {
@@ -228,6 +228,8 @@
             margin-right: 5px;
         }
     </style>
+    <!-- Load reCAPTCHA Enterprise with your site key -->
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </head>
 <body>
     <div class="login-container">
@@ -258,8 +260,8 @@
                     </div>
                 </div>
 
-                <!-- reCAPTCHA Container -->
-                <div id="recaptcha-container"></div>
+                <!-- reCAPTCHA Enterprise widget with your site key -->
+                <div class="g-recaptcha" data-sitekey="6LdDuIAsAAAAANZdI_9Racj0fcMc3sDZNJvL-KYq" data-action="LOGIN"></div>
 
                 <button type="submit" class="login-btn" id="loginBtn">
                     <i class="fas fa-sign-in-alt"></i>
@@ -268,7 +270,7 @@
 
                 <div class="security-badge">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Protected by Google reCAPTCHA</span>
+                    <span>Protected by Google reCAPTCHA Enterprise</span>
                     <i class="fas fa-lock"></i>
                 </div>
             </form>
@@ -288,45 +290,26 @@
     <!-- Your Firebase Config -->
     <script src="../js/firebase-config.js"></script>
 
-    <!-- Google reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Page loaded with Firebase project:', 'abhishek-agro-admin');
             
-            let recaptchaVerifier;
-            let isRecaptchaReady = false;
-            
-            // Initialize reCAPTCHA
-            try {
-                recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                    'size': 'normal',
-                    'callback': (response) => {
-                        console.log('reCAPTCHA verified');
-                        document.getElementById('loginBtn').disabled = false;
-                        hideError();
-                    },
-                    'expired-callback': () => {
-                        console.log('reCAPTCHA expired');
-                        document.getElementById('loginBtn').disabled = true;
-                        showError('reCAPTCHA expired. Please check the box again.');
-                    }
+            // Get reCAPTCHA token function
+            window.getRecaptchaToken = function(action) {
+                return new Promise((resolve, reject) => {
+                    grecaptcha.enterprise.ready(() => {
+                        grecaptcha.enterprise.execute('6LdDuIAsAAAAANZdI_9Racj0fcMc3sDZNJvL-KYq', {action: action})
+                            .then(token => {
+                                console.log('reCAPTCHA token received for action:', action);
+                                resolve(token);
+                            })
+                            .catch(error => {
+                                console.error('reCAPTCHA error:', error);
+                                reject(error);
+                            });
+                    });
                 });
-                
-                recaptchaVerifier.render().then((widgetId) => {
-                    console.log('reCAPTCHA rendered');
-                    window.recaptchaWidgetId = widgetId;
-                    isRecaptchaReady = true;
-                }).catch(error => {
-                    console.error('reCAPTCHA render error:', error);
-                    showError('Failed to load security check. Please refresh.');
-                });
-                
-            } catch (error) {
-                console.error('reCAPTCHA init error:', error);
-                showError('Security initialization failed');
-            }
+            };
 
             function showError(message) {
                 const errorDiv = document.getElementById('errorMessage');
@@ -352,18 +335,6 @@
                     return;
                 }
                 
-                if (!isRecaptchaReady) {
-                    showError('Please wait for security check to load');
-                    return;
-                }
-                
-                // Check reCAPTCHA
-                const recaptchaResponse = grecaptcha.getResponse(window.recaptchaWidgetId);
-                if (!recaptchaResponse) {
-                    showError('Please complete the security check');
-                    return;
-                }
-                
                 // Disable button
                 loginBtn.disabled = true;
                 loginBtn.innerHTML = '<span class="loading-spinner"></span> Verifying...';
@@ -371,7 +342,10 @@
                 try {
                     console.log('Attempting login for:', email);
                     
-                    // Sign in
+                    // Get reCAPTCHA token
+                    const recaptchaToken = await getRecaptchaToken('LOGIN');
+                    
+                    // Sign in with email and password
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     
                     console.log('Login successful for:', userCredential.user.email);
@@ -382,11 +356,6 @@
                 } catch (error) {
                     console.error('Login error:', error);
                     
-                    // Reset reCAPTCHA
-                    if (window.recaptchaWidgetId) {
-                        grecaptcha.reset(window.recaptchaWidgetId);
-                    }
-                    
                     let errorMessage = 'Login failed. Please try again.';
                     if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
                         errorMessage = 'Invalid email or password';
@@ -394,6 +363,8 @@
                         errorMessage = 'Too many attempts. Try again later.';
                     } else if (error.code === 'auth/network-request-failed') {
                         errorMessage = 'Network error. Check connection.';
+                    } else if (error.message && error.message.includes('recaptcha')) {
+                        errorMessage = 'reCAPTCHA verification failed. Please refresh.';
                     }
                     
                     showError(errorMessage);
@@ -401,6 +372,9 @@
                     // Re-enable button
                     loginBtn.disabled = false;
                     loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Dashboard';
+                    
+                    // Reset reCAPTCHA
+                    grecaptcha.enterprise.reset();
                 }
             });
 
