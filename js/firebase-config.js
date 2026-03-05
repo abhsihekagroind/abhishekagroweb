@@ -1,4 +1,4 @@
-// Firebase configuration - PASTE YOUR CONFIG HERE
+// js/firebase-config.js
 const firebaseConfig = {
     apiKey: "AIzaSyBvJoIP0-rCSnkwwm6ATqIFemsxgfmla7g",
     authDomain: "abhishek-agro-admin.firebaseapp.com",
