@@ -275,6 +275,7 @@
             border-radius: 50px;
             font-size: 0.8rem;
             font-weight: 600;
+            display: inline-block;
         }
 
         .action-btns {
@@ -302,7 +303,7 @@
         }
 
         .delete-btn {
-            background: rgba(255, 0, 0, 0.1);
+            background: rgba(220, 53, 69, 0.1);
             color: #dc3545;
         }
 
@@ -402,17 +403,31 @@
             font-size: 1rem;
             cursor: pointer;
             width: 100%;
+            margin-top: 20px;
         }
 
         .loading {
             text-align: center;
             padding: 50px;
+            color: var(--text-light);
+        }
+
+        .loading i {
+            font-size: 2rem;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
         }
 
         .no-products {
             text-align: center;
             padding: 50px;
             color: var(--text-light);
+        }
+
+        .no-products i {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
         }
 
         /* Notification */
@@ -471,7 +486,7 @@
                 <span>Abhishek <span>Agro</span> • Admin</span>
             </div>
             <div class="nav-user">
-                <span class="user-email" id="userEmail"></span>
+                <span class="user-email" id="userEmail">Loading...</span>
                 <button class="logout-btn" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
@@ -517,7 +532,7 @@
                     <i class="fas fa-star"></i>
                 </div>
                 <div class="stat-info">
-                    <h3 id="avgRating">4.8</h3>
+                    <h3 id="avgRating">0</h3>
                     <p>Average Rating</p>
                 </div>
             </div>
@@ -526,7 +541,7 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-info">
-                    <h3 id="totalReviews">5.2K+</h3>
+                    <h3 id="totalReviews">0</h3>
                     <p>Total Reviews</p>
                 </div>
             </div>
@@ -543,9 +558,9 @@
             </div>
             
             <div class="table-container" id="productsTableContainer">
-                <!-- Products will be loaded here -->
                 <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Loading products...
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading products...</p>
                 </div>
             </div>
         </div>
@@ -564,12 +579,12 @@
                 
                 <div class="form-group">
                     <label>Product Name *</label>
-                    <input type="text" id="productName" required>
+                    <input type="text" id="productName" placeholder="e.g., SONAM Rice" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Description *</label>
-                    <textarea id="productDesc" rows="3" required></textarea>
+                    <textarea id="productDesc" rows="3" placeholder="Product description..." required></textarea>
                 </div>
                 
                 <div class="form-row">
@@ -584,14 +599,14 @@
                     
                     <div class="form-group">
                         <label>Image URL *</label>
-                        <input type="url" id="productImage" required>
+                        <input type="url" id="productImage" placeholder="https://..." required>
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Rating *</label>
-                        <input type="number" id="productRating" step="0.1" min="0" max="5" required>
+                        <input type="number" id="productRating" step="0.1" min="0" max="5" value="4.5" required>
                     </div>
                     
                     <div class="form-group">
@@ -602,20 +617,20 @@
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Price (25kg) *</label>
-                        <input type="number" id="price25" required>
+                        <label>Price (25kg) NPR *</label>
+                        <input type="number" id="price25" placeholder="2500" required>
                     </div>
                     
                     <div class="form-group">
-                        <label>Price (30kg)</label>
-                        <input type="number" id="price30">
+                        <label>Price (30kg) NPR</label>
+                        <input type="number" id="price30" placeholder="3000">
                     </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Price (50kg)</label>
-                        <input type="number" id="price50">
+                        <label>Price (50kg) NPR</label>
+                        <input type="number" id="price50" placeholder="4800">
                     </div>
                 </div>
                 
@@ -661,45 +676,127 @@
     <script src="../js/firebase-config.js"></script>
     
     <script>
-        // Check authentication
+        // ============================================
+        // SECURITY: Check if user is logged in
+        // ============================================
         auth.onAuthStateChanged(user => {
             if (!user) {
+                console.log('No user logged in, redirecting to login...');
                 window.location.href = 'adminindex.html';
             } else {
+                console.log('User logged in:', user.email);
                 document.getElementById('userEmail').textContent = user.email;
-                loadProducts();
+                loadProducts(); // Load products only after authentication
             }
         });
 
-        // Logout
+        // ============================================
+        // Logout Function
+        // ============================================
         document.getElementById('logoutBtn').addEventListener('click', () => {
             auth.signOut().then(() => {
                 window.location.href = 'adminindex.html';
+            }).catch(error => {
+                console.error('Logout error:', error);
+                showNotification('Error logging out', 'error');
             });
         });
 
-        // Global variables
+        // ============================================
+        // Global Variables
+        // ============================================
         let currentProducts = [];
         let deleteProductId = null;
 
-        // Load products from Firestore
+        // ============================================
+        // Load Products from Firestore
+        // ============================================
         async function loadProducts() {
             try {
+                const productsTableContainer = document.getElementById('productsTableContainer');
+                productsTableContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>Loading products...</p></div>';
+                
                 const snapshot = await db.collection('products').get();
                 currentProducts = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 }));
                 
-                updateStats();
-                renderProducts(currentProducts);
+                console.log('Loaded products:', currentProducts.length);
+                
+                if (currentProducts.length === 0) {
+                    // Add sample products if none exist
+                    await addSampleProducts();
+                } else {
+                    updateStats();
+                    renderProducts(currentProducts);
+                }
             } catch (error) {
                 console.error('Error loading products:', error);
+                document.getElementById('productsTableContainer').innerHTML = 
+                    '<div class="no-products"><i class="fas fa-exclamation-circle"></i><p>Error loading products. Please refresh.</p></div>';
                 showNotification('Error loading products', 'error');
             }
         }
 
-        // Update statistics
+        // ============================================
+        // Add Sample Products (for first time setup)
+        // ============================================
+        async function addSampleProducts() {
+            const sampleProducts = [
+                {
+                    name: 'SONAM (Sabha Jeera Masino)',
+                    description: 'Premium Sabha Jeera Masino Chamal known for its fine grains, rich aroma, and excellent taste.',
+                    category: 'sonam',
+                    image: 'https://i.ibb.co/svBCHN8Z/616593943-122157427802905659-4662619396513232558-n.jpg',
+                    rating: 4.7,
+                    reviews: '1,240',
+                    price25: 2500,
+                    price30: 2950,
+                    price50: 4800,
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    name: 'DAYA BHOG (Katarni Masino)',
+                    description: 'Premium Sabha Masino Katarni Chamal with aromatic fragrance, fine grains, and superior cooking quality.',
+                    category: 'daya',
+                    image: 'https://i.ibb.co/8g4593gr/Daya-bhog-katarni-page-0001.jpg',
+                    rating: 4.6,
+                    reviews: '890',
+                    price25: 2800,
+                    price30: 3300,
+                    price50: 5400,
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    name: 'SWAD BHOG (Premium Jeera)',
+                    description: 'Premium quality Jeera Masino Chamal with aromatic fragrance and long, slender grains.',
+                    category: 'swad',
+                    image: 'https://i.ibb.co/ycS4HnjJ/Whats-App-Image-2026-01-19-at-1-54-05-PM.jpg',
+                    rating: 5.0,
+                    reviews: '1,150',
+                    price25: 3200,
+                    price30: 3800,
+                    price50: 6200,
+                    createdAt: new Date().toISOString()
+                }
+            ];
+            
+            try {
+                for (const product of sampleProducts) {
+                    await db.collection('products').add(product);
+                }
+                console.log('Sample products added');
+                loadProducts(); // Reload products
+            } catch (error) {
+                console.error('Error adding sample products:', error);
+                showNotification('Error creating sample products', 'error');
+            }
+        }
+
+        // ============================================
+        // Update Statistics
+        // ============================================
         function updateStats() {
             document.getElementById('totalProducts').textContent = currentProducts.length;
             
@@ -723,12 +820,14 @@
             }
         }
 
-        // Render products table
+        // ============================================
+        // Render Products Table
+        // ============================================
         function renderProducts(products) {
             const container = document.getElementById('productsTableContainer');
             
             if (products.length === 0) {
-                container.innerHTML = '<div class="no-products">No products found</div>';
+                container.innerHTML = '<div class="no-products"><i class="fas fa-box-open"></i><p>No products found</p><button class="add-btn" style="margin-top: 20px;" onclick="document.getElementById(\'addProductBtn\').click()">Add Your First Product</button></div>';
                 return;
             }
             
@@ -740,7 +839,7 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Rating</th>
-                            <th>Prices</th>
+                            <th>Prices (NPR)</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -751,31 +850,31 @@
                 html += `
                     <tr>
                         <td>
-                            <img src="${product.image}" alt="${product.name}" class="product-img">
+                            <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://via.placeholder.com/50?text=No+Image'">
                         </td>
                         <td>
                             <div class="product-name">${product.name}</div>
-                            <small>${product.description?.substring(0, 50)}...</small>
+                            <small style="color: #666;">${product.description?.substring(0, 50)}${product.description?.length > 50 ? '...' : ''}</small>
                         </td>
                         <td>
                             <span class="product-category">${product.category?.toUpperCase()}</span>
                         </td>
                         <td>
                             <i class="fas fa-star" style="color: #D4AF37;"></i> ${product.rating || 4.5}
-                            <br><small>${product.reviews || 0} reviews</small>
+                            <br><small style="color: #666;">${product.reviews || 0} reviews</small>
                         </td>
                         <td>
-                            <div>25kg: NPR ${product.price25 || '—'}</div>
-                            <div>30kg: NPR ${product.price30 || '—'}</div>
-                            <div>50kg: NPR ${product.price50 || '—'}</div>
+                            <div><strong>25kg:</strong> NPR ${product.price25 || '—'}</div>
+                            <div><strong>30kg:</strong> NPR ${product.price30 || '—'}</div>
+                            <div><strong>50kg:</strong> NPR ${product.price50 || '—'}</div>
                         </td>
                         <td>
                             <div class="action-btns">
                                 <button class="edit-btn" onclick="editProduct('${product.id}')">
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-edit"></i> Edit
                                 </button>
                                 <button class="delete-btn" onclick="confirmDelete('${product.id}')">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash"></i> Delete
                                 </button>
                             </div>
                         </td>
@@ -787,18 +886,29 @@
             container.innerHTML = html;
         }
 
-        // Search functionality
+        // ============================================
+        // Search Functionality
+        // ============================================
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                renderProducts(currentProducts);
+                return;
+            }
+            
             const filtered = currentProducts.filter(product => 
-                product.name.toLowerCase().includes(searchTerm) ||
+                product.name?.toLowerCase().includes(searchTerm) ||
                 product.description?.toLowerCase().includes(searchTerm) ||
                 product.category?.toLowerCase().includes(searchTerm)
             );
+            
             renderProducts(filtered);
         });
 
-        // Modal functions
+        // ============================================
+        // Modal Functions
+        // ============================================
         const modal = document.getElementById('productModal');
         const deleteModal = document.getElementById('deleteModal');
         
@@ -806,6 +916,7 @@
             document.getElementById('modalTitle').textContent = 'Add New Product';
             document.getElementById('productForm').reset();
             document.getElementById('productId').value = '';
+            document.getElementById('productRating').value = '4.5';
             modal.classList.add('active');
         });
         
@@ -821,10 +932,25 @@
             deleteModal.classList.remove('active');
         });
 
-        // Edit product
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+            if (e.target === deleteModal) {
+                deleteModal.classList.remove('active');
+            }
+        });
+
+        // ============================================
+        // Edit Product
+        // ============================================
         window.editProduct = (productId) => {
             const product = currentProducts.find(p => p.id === productId);
-            if (!product) return;
+            if (!product) {
+                showNotification('Product not found', 'error');
+                return;
+            }
             
             document.getElementById('modalTitle').textContent = 'Edit Product';
             document.getElementById('productId').value = product.id;
@@ -841,13 +967,17 @@
             modal.classList.add('active');
         };
 
-        // Confirm delete
+        // ============================================
+        // Confirm Delete
+        // ============================================
         window.confirmDelete = (productId) => {
             deleteProductId = productId;
             deleteModal.classList.add('active');
         };
 
-        // Delete product
+        // ============================================
+        // Delete Product
+        // ============================================
         document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
             if (!deleteProductId) return;
             
@@ -855,30 +985,45 @@
                 await db.collection('products').doc(deleteProductId).delete();
                 showNotification('Product deleted successfully', 'success');
                 deleteModal.classList.remove('active');
-                loadProducts();
+                await loadProducts(); // Reload products
             } catch (error) {
                 console.error('Error deleting product:', error);
                 showNotification('Error deleting product', 'error');
+                deleteModal.classList.remove('active');
             }
         });
 
-        // Form submission
+        // ============================================
+        // Form Submission (Add/Edit)
+        // ============================================
         document.getElementById('productForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const productId = document.getElementById('productId').value;
+            const submitBtn = document.getElementById('submitBtn');
+            
             const productData = {
-                name: document.getElementById('productName').value,
-                description: document.getElementById('productDesc').value,
+                name: document.getElementById('productName').value.trim(),
+                description: document.getElementById('productDesc').value.trim(),
                 category: document.getElementById('productCategory').value,
-                image: document.getElementById('productImage').value,
-                rating: parseFloat(document.getElementById('productRating').value),
-                reviews: document.getElementById('productReviews').value,
+                image: document.getElementById('productImage').value.trim(),
+                rating: parseFloat(document.getElementById('productRating').value) || 4.5,
+                reviews: document.getElementById('productReviews').value.trim() || '0',
                 price25: parseFloat(document.getElementById('price25').value) || null,
                 price30: parseFloat(document.getElementById('price30').value) || null,
                 price50: parseFloat(document.getElementById('price50').value) || null,
                 updatedAt: new Date().toISOString()
             };
+            
+            // Validate required fields
+            if (!productData.name || !productData.description || !productData.image) {
+                showNotification('Please fill all required fields', 'error');
+                return;
+            }
+            
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
             
             try {
                 if (productId) {
@@ -893,14 +1038,21 @@
                 }
                 
                 modal.classList.remove('active');
-                loadProducts();
+                await loadProducts(); // Reload products
+                
             } catch (error) {
                 console.error('Error saving product:', error);
-                showNotification('Error saving product', 'error');
+                showNotification('Error saving product: ' + error.message, 'error');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save Product';
             }
         });
 
-        // Notification function
+        // ============================================
+        // Notification Function
+        // ============================================
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             const messageSpan = document.getElementById('notificationMessage');
@@ -914,17 +1066,9 @@
             }, 3000);
         }
 
-        // Close modals when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-            if (e.target === deleteModal) {
-                deleteModal.classList.remove('active');
-            }
-        });
-
-        // Auto logout on inactivity (30 minutes)
+        // ============================================
+        // Auto-logout on Inactivity (30 minutes)
+        // ============================================
         let timeout;
         function resetTimeout() {
             clearTimeout(timeout);
@@ -932,10 +1076,10 @@
                 auth.signOut().then(() => {
                     window.location.href = 'adminindex.html?timeout=1';
                 });
-            }, 30 * 60 * 1000);
+            }, 30 * 60 * 1000); // 30 minutes
         }
         
-        ['click', 'keypress', 'scroll'].forEach(event => {
+        ['click', 'keypress', 'scroll', 'mousemove'].forEach(event => {
             document.addEventListener(event, resetTimeout);
         });
         resetTimeout();
