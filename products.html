@@ -410,6 +410,27 @@
             color: var(--text-light);
         }
 
+        /* loading spinner */
+        .loading-spinner {
+            text-align: center;
+            padding: 60px;
+            grid-column: 1 / -1;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(212,175,55,0.1);
+            border-left-color: var(--primary-gold);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* footer (identical) */
         .premium-footer {
             background: linear-gradient(135deg, var(--primary-dark) 0%, #0a2d23 100%);
@@ -597,7 +618,10 @@
 
     <!-- ===== PRODUCT GRID (dynamic) ===== -->
     <div class="products-grid grid-4" id="productsGrid">
-        <!-- products will be rendered by javascript -->
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading premium products...</p>
+        </div>
     </div>
 
     <!-- ===== FOOTER (identical) ===== -->
@@ -662,8 +686,8 @@
 
     <script>
         (function() {
-            // ----- product data (exactly the 7 products from original) -----
-            const products = [
+            // ----- fallback product data (exactly the 7 products from original) -----
+            const fallbackProducts = [
                 { 
                     name: 'SONAM (Sabha Jeera Masino)',
                     desc: 'Fine, aromatic grains perfect for daily use. Rich taste & soft texture.',
@@ -728,6 +752,7 @@
             const viewBtns = document.querySelectorAll('.view-btn');
             let currentFilter = 'all';
             let currentGrid = '4';   // default 4
+            let products = []; // will be populated from Firebase or fallback
 
             // render products based on filter
             function renderProducts() {
@@ -768,7 +793,7 @@
                                     ${stars} ${p.rating} (${p.reviews} reviews)
                                 </div>
                                 <div class="product-cta">
-                                    <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20${encodeURIComponent(p.name)}%2025KG" target="_blank" class="btn-order">
+                                    <a href="https://wa.me/9779857022913?text=Hi%20Abhishek%20Agro%2C%20I%20would%20like%20to%20order%20${encodeURIComponent(p.name + ' 25KG')}" target="_blank" class="btn-order">
                                         <i class="fab fa-whatsapp"></i> Order
                                     </a>
                                 </div>
@@ -827,8 +852,49 @@
                 });
             });
 
-            // initial render
-            renderProducts();
+            // Try to load from Firebase first, fallback to static data
+            async function initializeProducts() {
+                // Show loading state
+                grid.innerHTML = `<div class="loading-spinner"><div class="spinner"></div><p>Loading premium products...</p></div>`;
+                
+                try {
+                    // Check if Firebase is available
+                    if (typeof db !== 'undefined' && db) {
+                        const snapshot = await db.collection('products').get();
+                        if (!snapshot.empty) {
+                            products = snapshot.docs.map(doc => {
+                                const data = doc.data();
+                                // Map Firebase fields to our expected structure
+                                return {
+                                    name: data.name || 'Premium Rice',
+                                    desc: data.description || 'High quality premium rice',
+                                    img: data.image || 'https://via.placeholder.com/300',
+                                    category: data.category || 'sonam',
+                                    rating: data.rating || 4.5,
+                                    reviews: data.reviews || '100+'
+                                };
+                            });
+                        } else {
+                            // No products in Firebase, use fallback
+                            console.log('No products in Firebase, using fallback data');
+                            products = [...fallbackProducts];
+                        }
+                    } else {
+                        // Firebase not initialized, use fallback
+                        console.log('Firebase not available, using fallback data');
+                        products = [...fallbackProducts];
+                    }
+                } catch (error) {
+                    console.error('Error loading from Firebase:', error);
+                    products = [...fallbackProducts];
+                }
+                
+                // Render the products
+                renderProducts();
+            }
+
+            // Start initialization
+            initializeProducts();
 
             // ----- mobile toggle (same as original) -----
             const mobileToggle = document.getElementById('mobileToggle');
@@ -856,5 +922,10 @@
             });
         })();
     </script>
+
+    <!-- Add this script at the end of your products.html -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
 </body>
 </html>
